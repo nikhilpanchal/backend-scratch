@@ -1,14 +1,19 @@
 package com.nikhil.resttests.controllers;
 
+import com.nikhil.resttests.RestTestsApplication;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 
-
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RestTestsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BetControllerTest {
 
     @Test
