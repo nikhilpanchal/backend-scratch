@@ -1,8 +1,8 @@
-package com.nikhil.testing.models;
+package com.nikhil.resttests.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import lombok.*;
 
 import java.util.List;
 
@@ -26,9 +26,9 @@ import java.util.List;
  */
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class BetEvents {
+@Value
+public class BetEvent {
+    @Value
     @Builder
     public static class Data {
         private int leagueId;
@@ -36,10 +36,12 @@ public class BetEvents {
         private String visitingTeam;
     }
 
+    @Value
     @Builder
     public static class Odd {
         private String price;
         private String name;
+        private double ck;
     }
 
     private String id;
