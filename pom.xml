@@ -9,60 +9,84 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.RELEASE</version>
+    </parent>
+
     <modules>
         <module>rxjava</module>
         <module>streams</module>
         <module>miscellaneous</module>
         <module>visitor</module>
+        <module>common</module>
+        <module>rest-tests</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <lombok.version>1.16.20</lombok.version>
+        <rest-assured.version>3.0.7</rest-assured.version>
+        <hamcrest-all.version>2.0.0</hamcrest-all.version>
+        <spring-boot-dependencies.version>2.0.0.RELEASE</spring-boot-dependencies.version>
+        <rxjava.version>1.3.4</rxjava.version>
+        <common.version>0.0.1-SNAPSHOT</common.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- If we can't have spring-boot-starter-parent be the parent module, we can use the following
+            dependency tag to import and use all of the spring-boot-starter dependencies -->
+
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-dependencies</artifactId>-->
+                <!--<version>${spring-boot-dependencies.version}</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.18</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>java-hamcrest</artifactId>
-                <version>2.0.0.0</version>
-                <scope>test</scope>
+                <version>1.16.20</version>
             </dependency>
 
             <dependency>
                 <groupId>io.reactivex</groupId>
                 <artifactId>rxjava</artifactId>
-                <version>1.3.4</version>
+                <version>${rxjava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>com.nikhil</groupId>
                 <artifactId>common</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${common.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>2.0.0.BUILD-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>2.0.0.BUILD-SNAPSHOT</version>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>${rest-assured.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
 </project>
