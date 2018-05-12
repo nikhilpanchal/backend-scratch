@@ -21,7 +21,7 @@
         <module>miscellaneous</module>
         <module>visitor</module>
         <module>common</module>
-        <module>rest-tests</module>
+        <module>functional</module>
     </modules>
 
     <properties>
@@ -48,6 +48,12 @@
                 <!--<type>pom</type>-->
                 <!--<scope>import</scope>-->
             <!--</dependency>-->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-dependencies.version}-</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>

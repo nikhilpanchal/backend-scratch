@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
  * So you can think of this as the class "loaning" out an instance to the function temporarily
  */
 public class MailerTest {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MailerTest.class.getName());
 
     @Before
@@ -31,20 +30,35 @@ public class MailerTest {
         Mailer.INSTANCE = mailerSpy;
 
         // when
-        Mailer.sendMail(mail -> {
-            mail.to("nikhil@invalid.abc")
-                    .cc("erica@invalid.abc")
-                    .subject("Testing fluent and loan pattern")
-                    .body("Pretty cool that I get an object, do what I want with it, and " +
-                            "Mailer takes care of setup and cleanup for me");
-        }, mail -> {
-            mail.gatherMetrics(10);
-        });
+        Mailer.sendMail(mail -> mail.to("nikhil@invalid.abc")
+                .cc("erica@invalid.abc")
+                .subject("Testing fluent and loan pattern")
+                .body("Pretty cool that I get an object, do what I want with it, and " +
+                        "Mailer takes care of setup and cleanup for me"), mail -> mail.gatherMetrics(10));
 
         // then
         // Ensure that the required methods around the block are called.
         Mockito.verify(mailerSpy).init();
         Mockito.verify(mailerSpy).send();
         Mockito.verify(mailerSpy).close();
+    }
+
+    private void call(Runnable runnable) {
+        LOGGER.info("Within the call function");
+        runnable.run();
+    }
+
+    private Runnable createClosure() {
+        int value = 4;
+        return () -> LOGGER.debug("The closure value is {}", value);
+    }
+
+    @Test
+    public void checking_out_closures() {
+        int value = 4;
+
+        call(() -> LOGGER.info("This is value {}", value));
+
+        createClosure().run();
     }
 }
