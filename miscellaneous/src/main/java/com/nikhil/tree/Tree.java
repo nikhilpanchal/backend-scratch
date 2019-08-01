@@ -1,9 +1,8 @@
 package com.nikhil.tree;
 
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Value;
 import org.apache.commons.lang3.tuple.Pair;
@@ -12,11 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -25,15 +19,28 @@ public class Tree<T> {
     private static Logger LOGGER = LoggerFactory.getLogger(Tree.class);
 
     public static class Node<T> {
+        @Getter
         private T value;
+
+        @Getter
         private List<Node<T>> children = Lists.newArrayList();
 
         public Node(T value) {
             this.value = value;
         }
 
-        public T getValue() {
-            return value;
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node<T> node = (Node<T>) o;
+            return Objects.equal(value, node.value) &&
+                    Objects.equal(children, node.children);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(value, children);
         }
     }
 
